@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import {
   Phone,
@@ -57,6 +58,7 @@ export default function CuerposAcademicosClient({
 }: {
   cuerposAcademicos: CA[];
 }) {
+  const searchParams = useSearchParams();
   const [contactCA, setContactCA] = useState<CA | null>(null);
   const [integrantes, setIntegrantes] = useState<Integrante[]>([]);
   const [selectedMember, setSelectedMember] = useState(0);
@@ -83,6 +85,14 @@ export default function CuerposAcademicosClient({
       setLoadingIntegrantes(false);
     }
   };
+
+  useEffect(() => {
+    const clvCA = searchParams.get("CA");
+    if (clvCA && cuerposAcademicos.length > 0) {
+      const ca = cuerposAcademicos.find((c) => c.vchClvCA === clvCA);
+      if (ca) openContact(ca);
+    }
+  }, [searchParams, cuerposAcademicos]);
 
   const enviarMensaje = async () => {
     if (!mensaje.trim()) return;
@@ -152,7 +162,6 @@ export default function CuerposAcademicosClient({
                   {contactCA.vchNombreCA}
                 </h2>
 
-                {/* Logo */}
                 <div className="relative w-[120px] h-[120px] mx-auto mb-8 rounded-full overflow-hidden border-[3px] border-[#faf5e4] bg-[#f0ece6]">
                   {contactCA.ImagenLogo ? (
                     <Image
@@ -170,7 +179,6 @@ export default function CuerposAcademicosClient({
                 </div>
 
                 <div className="flex flex-col gap-4 mb-8">
-                  {/* Departamento */}
                   <div className="flex items-start gap-3 p-4 bg-[#fdfcfa] border border-[#e8e4df] rounded-[4px]">
                     <GraduationCap className="w-[16px] h-[16px] text-[#c9a227] mt-[2px] shrink-0" />
                     <div>
@@ -183,7 +191,6 @@ export default function CuerposAcademicosClient({
                     </div>
                   </div>
 
-                  {/* Integrantes */}
                   <div className="p-4 bg-[#fdfcfa] border border-[#e8e4df] rounded-[4px]">
                     <div className="flex items-center gap-2 mb-3">
                       <User className="w-[16px] h-[16px] text-[#c9a227] shrink-0" />
@@ -271,7 +278,6 @@ export default function CuerposAcademicosClient({
                     )}
                   </div>
 
-                  {/* Email */}
                   {integrantes.length > 0 && (
                     <div className="flex items-start gap-3 p-4 bg-[#fdfcfa] border border-[#e8e4df] rounded-[4px]">
                       <Mail className="w-[16px] h-[16px] text-[#c9a227] mt-[2px] shrink-0" />
@@ -291,7 +297,6 @@ export default function CuerposAcademicosClient({
                   )}
                 </div>
 
-                {/* Mensaje */}
                 <div className="border-t border-[#e8e4df] pt-6">
                   <p className="text-[0.68rem] font-semibold tracking-[0.12em] uppercase text-[#c9a227] mb-3">
                     Enviar mensaje

@@ -93,7 +93,6 @@ export default async function HomePage() {
               className="inline-flex items-center gap-[0.45rem] px-6 py-[0.6rem] bg-transparent text-[#722F37] border-[1.5px] border-[rgba(30,30,30,0.35)] rounded-[50px] text-[0.82rem] font-semibold no-underline transition-all duration-300 hover:bg-[#c9a227] hover:text-white hover:border-[#c9a227] shrink-0"
             >
               Ver todos
-              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
@@ -120,7 +119,7 @@ export default async function HomePage() {
                     {ca.vchNomDpto}
                   </p>
                   <Link
-                    href={`/contacto?CA=${ca.vchClvCA}`}
+                    href={`/cuerpos-academicos?CA=${ca.vchClvCA}`}
                     className="inline-flex items-center gap-[0.4rem] px-[1.1rem] py-[0.46rem] bg-transparent border border-[rgba(183,140,51,0.65)] text-[#c9a227] rounded-[4px] text-[0.74rem] font-semibold no-underline tracking-[0.02em] transition-all duration-300 hover:bg-[#c9a227] hover:text-white hover:border-[#c9a227]"
                   >
                     <Phone className="w-[10px] h-[10px]" />
@@ -151,7 +150,6 @@ export default async function HomePage() {
               className="inline-flex items-center gap-[0.45rem] px-[1.4rem] py-[0.6rem] bg-[#722F37] text-white rounded-[4px] text-[0.82rem] font-semibold no-underline transition-all duration-300 hover:bg-[#c9a227] shrink-0"
             >
               Ver todas
-              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
           <PublicacionesCarousel publicaciones={publicaciones} />

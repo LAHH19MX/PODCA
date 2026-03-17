@@ -6,6 +6,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-}
+  serverExternalPackages: ["mssql"],
+};
 
-export default nextConfig
+export default nextConfig;
