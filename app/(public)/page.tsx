@@ -53,7 +53,7 @@ export default async function HomePage() {
       {/* HERO */}
       <section className="relative h-svh min-h-[580px] flex items-end overflow-hidden">
         <Image
-          src="/images/hero.jpg"
+          src="/images/hero2.jpg"
           alt="Vivero Universitario UTHH"
           fill
           className="object-cover"

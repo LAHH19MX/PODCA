@@ -47,6 +47,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        token.id = user.id  
         token.tipoUser = (user as any).tipoUser;
         token.chrCarrera = (user as any).chrCarrera;
         token.claveCA = (user as any).claveCA;
@@ -54,6 +55,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
+      (session.user as any).id = token.id; 
       (session.user as any).tipoUser = token.tipoUser;
       (session.user as any).chrCarrera = token.chrCarrera;
       (session.user as any).claveCA = token.claveCA;

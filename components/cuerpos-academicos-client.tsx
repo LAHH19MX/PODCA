@@ -348,11 +348,12 @@ export default function CuerposAcademicosClient({
               <div className="w-11 h-[3px] bg-[#c9a227] rounded-[2px] mt-[0.9rem]" />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* ── ÚNICO CAMBIO: flex + justify-center + ancho fijo por tarjeta ── */}
+            <div className="flex flex-wrap justify-center gap-5">
               {cuerposAcademicos.map((ca) => (
                 <div
                   key={ca.id}
-                  className="bg-[#fff] border border-[#e8e4df] overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.1)] group"
+                  className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] bg-[#fff] border border-[#e8e4df] overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.1)] group"
                 >
                   <div className="relative overflow-hidden aspect-[16/10] bg-[#f0ece6]">
                     {ca.ImagenLogo ? (

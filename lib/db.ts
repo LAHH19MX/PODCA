@@ -19,3 +19,5 @@ export async function getConnection(): Promise<sql.ConnectionPool> {
   pool = await sql.connect(config);
   return pool;
 }
+
+export { sql };

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import { useState, useEffect } from "react";
 import {
   LayoutDashboard,
   Users,
@@ -234,18 +235,39 @@ const roleConfig: Record<
   },
 };
 
+// Roles que tienen foto de perfil en /api/{role}/perfil
+const ROLES_CON_FOTO = ["miembro", "lider"];
+
 export function DashboardSidebar({ role }: { role: string }) {
   const pathname = usePathname();
   const router = useRouter();
   const { data: session } = useSession();
   const config = roleConfig[role] || roleConfig.admin;
+  const [fotoPerfil, setFotoPerfil] = useState<string | null>(null);
+  const [cacheBust] = useState(Date.now());
 
   const handleSignOut = async () => {
     await signOut({ redirect: false });
     router.push("/login");
   };
 
-  // Inicial del nombre para el avatar
+  // Cargar foto solo para roles que la tienen
+  useEffect(() => {
+    if (!ROLES_CON_FOTO.includes(role)) return;
+    fetch(`/api/${role}/perfil`)
+      .then((r) => r.json())
+      .then((json) => {
+        if (
+          json.success &&
+          json.data?.imagen &&
+          json.data.imagen !== "sin imagen.jpg"
+        ) {
+          setFotoPerfil(json.data.imagen);
+        }
+      })
+      .catch(() => {});
+  }, [role]);
+
   const nombreCompleto = session?.user?.name ?? "Usuario";
   const inicial = nombreCompleto.charAt(0).toUpperCase();
 
@@ -295,11 +317,20 @@ export function DashboardSidebar({ role }: { role: string }) {
       {/* Footer */}
       <div className="px-3 pb-4 border-t border-[rgba(255,255,255,0.1)] pt-4">
         <div className="flex items-center gap-3 px-3 mb-4">
-          {/* Avatar con inicial */}
-          <div className="w-8 h-8 rounded-full bg-[rgba(201,162,39,0.25)] flex items-center justify-center shrink-0">
-            <span className="text-[0.75rem] font-bold text-[#c9a227]">
-              {inicial}
-            </span>
+          {/* Avatar — foto si existe, inicial si no */}
+          <div className="w-8 h-8 rounded-full bg-[rgba(201,162,39,0.25)] flex items-center justify-center shrink-0 overflow-hidden border border-[rgba(201,162,39,0.3)]">
+            {fotoPerfil ? (
+              <img
+                src={`/ImagenPerfil/${fotoPerfil}?t=${cacheBust}`}
+                alt={nombreCompleto}
+                className="w-full h-full object-cover"
+                onError={() => setFotoPerfil(null)}
+              />
+            ) : (
+              <span className="text-[0.75rem] font-bold text-[#c9a227]">
+                {inicial}
+              </span>
+            )}
           </div>
           <div className="min-w-0">
             <p className="text-[0.75rem] text-[rgba(255,255,255,0.9)] font-medium truncate">
