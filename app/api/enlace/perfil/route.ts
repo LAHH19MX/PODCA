@@ -10,6 +10,9 @@ export async function GET() {
     const session = await auth();
     if (!session?.user) return NextResponse.json({ success: false }, { status: 401 });
 
+    const tipoUser = (session.user as any).tipoUser;
+    if (tipoUser !== "2") return NextResponse.json({ success: false }, { status: 403 });
+
     const usuario = session.user.id as string;
     const pool = await getConnection();
 
@@ -57,6 +60,9 @@ export async function PUT(request: Request) {
     const session = await auth();
     if (!session?.user) return NextResponse.json({ success: false }, { status: 401 });
 
+    const tipoUser = (session.user as any).tipoUser;
+    if (tipoUser !== "2") return NextResponse.json({ success: false }, { status: 403 });
+
     const usuario = session.user.id as string;
     const formData = await request.formData();
     const archivo = formData.get("imagen") as File | null;
@@ -68,16 +74,24 @@ export async function PUT(request: Request) {
     if (!["jpg", "jpeg", "png"].includes(ext))
       return NextResponse.json({ success: false, error: "Solo jpg, jpeg o png" }, { status: 400 });
 
-    const nombreArchivo = `${usuario}_${archivo.name}`;
+    const MAX_SIZE = 5 * 1024 * 1024;
+    if (archivo.size > MAX_SIZE)
+      return NextResponse.json({ success: false, error: "La imagen no puede superar 5 MB" }, { status: 400 });
+
+    const safeBaseName = path.basename(archivo.name).replaceAll(/[^a-zA-Z0-9._-]/g, "_");
+    const nombreArchivo = `${usuario}_${safeBaseName}`;
     const dir = path.join(process.cwd(), "public", "ImagenPerfil");
     await mkdir(dir, { recursive: true });
     await writeFile(path.join(dir, nombreArchivo), Buffer.from(await archivo.arrayBuffer()));
 
     const pool = await getConnection();
-    await pool.request()
+    const result = await pool.request()
       .input("img", sql.VarChar, nombreArchivo)
       .input("u", sql.VarChar, usuario)
       .query(`UPDATE tbl_CA_CATrabajador SET ImagenPerfil = @img WHERE vchClvTrabajador = @u`);
+
+    if (result.rowsAffected[0] === 0)
+      return NextResponse.json({ success: false, error: "No se encontró el registro del usuario" }, { status: 404 });
 
     return NextResponse.json({ success: true, imagen: nombreArchivo });
   } catch (error) {

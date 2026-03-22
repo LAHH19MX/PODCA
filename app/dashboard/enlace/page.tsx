@@ -21,7 +21,8 @@ export default function EnlaceDashboard() {
   useEffect(() => {
     fetch("/api/enlace/perfil")
       .then((r) => r.json())
-      .then((d) => { if (d.success) setPerfil(d.data) })
+      .then((d) => { if (d.success) setPerfil(d.data); else setMsg("Error al cargar perfil") })
+      .catch(() => setMsg("Error al cargar perfil"))
   }, [])
 
   async function subirFoto(file: File) {
