@@ -26,8 +26,8 @@ export async function GET(request: Request) {
     if (docente) { where += " AND [NO. TRABAJADOR] = @docente"; req.input("docente", sql.VarChar, docente) }
     if (status) { where += " AND [ID STATUS] = @status"; req.input("status", sql.VarChar, status) }
     if (tipoProducto) { where += " AND [TIPO PRODUCTO] = @tipo"; req.input("tipo", sql.VarChar, tipoProducto) }
-    if (fechaInicio) { where += " AND [FECHA REGISTRO] >= @fi"; req.input("fi", sql.Date, new Date(fechaInicio)) }
-    if (fechaFin) { where += " AND [FECHA REGISTRO] <= @ff"; req.input("ff", sql.Date, new Date(fechaFin)) }
+    if (fechaInicio) { where += " AND CAST([FECHA REGISTRO] AS DATE) >= @fi"; req.input("fi", sql.VarChar, fechaInicio) }
+    if (fechaFin) { where += " AND CAST([FECHA REGISTRO] AS DATE) <= @ff"; req.input("ff", sql.VarChar, fechaFin) }
 
     const produccion = await req.query(
       `SELECT * FROM view_CA_ProduccionAcademica ${where} ORDER BY [FECHA REGISTRO] DESC`

@@ -31,9 +31,9 @@ export default function ProduccionPage() {
         setData(r.data)
         if (r.data.length > 0 && columnas.length === 0) setColumnas(Object.keys(r.data[0]))
         if (cuerpos.length === 0) {
-          setCuerpos(r.catalogos.cuerpos.map((c: any) => ({ value: c.vchClvCA, label: `${c.vchClvCA} - ${c.vchNombreCA}` })))
-          setStatusCat(r.catalogos.status.map((s: any) => ({ value: String(s.intClvStatus), label: s.vchNombreStatus })))
-          setTiposCat(r.catalogos.tipos.map((t: any) => ({ value: String(t.intClvProducto), label: t.vchNombreProducto })))
+          setCuerpos((r.catalogos?.cuerpos ?? []).map((c: any) => ({ value: c.vchClvCA, label: `${c.vchClvCA} - ${c.vchNombreCA}` })))
+          setStatusCat((r.catalogos?.status ?? []).map((s: any) => ({ value: String(s.intClvStatus), label: s.vchNombreStatus })))
+          setTiposCat((r.catalogos?.tipos ?? []).map((t: any) => ({ value: String(t.intClvProducto), label: t.vchNombreProducto })))
         }
       } else {
         setError(r.error ?? "Error al cargar producción")
@@ -54,11 +54,6 @@ export default function ProduccionPage() {
     setFiltros(nuevos)
     void cargar(nuevos)
   }
-
-  // Actualizar columnas cuando llegan datos nuevos
-  useEffect(() => {
-    if (data.length > 0 && columnas.length === 0) setColumnas(Object.keys(data[0]))
-  }, [data, columnas.length])
 
   return (
     <DashboardLayout role="enlace">
