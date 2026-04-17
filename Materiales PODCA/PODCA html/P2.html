@@ -1,0 +1,1653 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Publicación — UTHH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --gold: #b78c33;
+        --gold-l: #d4aa55;
+        --gold-pale: #f5edd8;
+        --dark: #0f0f0f;
+        --ink: #2e2e2e;
+        --gray: #6b6b6b;
+        --gray-l: #9a9a9a;
+        --border: #e4ddd0;
+        --cream: #f7f4ee;
+        --white: #ffffff;
+        --alt: #f0ece4;
+        --fd: "Playfair Display", Georgia, serif;
+        --fb: "DM Sans", sans-serif;
+        --tr: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--fb);
+        background: var(--cream);
+        color: var(--ink);
+        overflow-x: hidden;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 3rem;
+        height: 68px;
+        background: rgba(15, 15, 15, 0.94);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid rgba(183, 140, 51, 0.15);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+      }
+      .nav-logo img {
+        height: 40px;
+        filter: brightness(0) invert(1);
+        opacity: 0.9;
+        transition: opacity var(--tr);
+      }
+      .nav-logo:hover img {
+        opacity: 0.7;
+      }
+      .nav-logo-fb {
+        font-family: var(--fd);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #fff;
+        display: none;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        transition: color var(--tr);
+        position: relative;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--gold);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform var(--tr);
+      }
+      .nav-links a:hover {
+        color: #fff;
+      }
+      .nav-links a:hover::after {
+        transform: scaleX(1);
+      }
+      .btn-login {
+        padding: 0.48rem 1.4rem;
+        background: var(--gold) !important;
+        color: #fff !important;
+        border-radius: 50px;
+        font-weight: 600 !important;
+        font-size: 0.85rem !important;
+        transition:
+          background var(--tr),
+          box-shadow var(--tr) !important;
+      }
+      .btn-login::after {
+        display: none !important;
+      }
+      .btn-login:hover {
+        background: var(--gold-l) !important;
+        box-shadow: 0 6px 18px rgba(183, 140, 51, 0.35) !important;
+      }
+
+      /* ── SHARED ── */
+      .container {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .sec-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        display: block;
+        margin-bottom: 0.65rem;
+      }
+      .sec-title {
+        font-family: var(--fd);
+        font-size: clamp(1.7rem, 2.5vw, 2.2rem);
+        font-weight: 700;
+        color: var(--dark);
+        line-height: 1.15;
+      }
+      .sec-line {
+        width: 44px;
+        height: 3px;
+        background: var(--gold);
+        border-radius: 2px;
+        margin-top: 0.9rem;
+      }
+      .pub-tag {
+        font-size: 0.64rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 600;
+        display: block;
+      }
+      .btn-read {
+        font-size: 0.74rem;
+        font-weight: 600;
+        color: var(--gold);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        transition:
+          gap var(--tr),
+          color var(--tr);
+      }
+      .btn-read:hover {
+        color: var(--dark);
+        gap: 0.55rem;
+      }
+      .pub-img-wrap {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 16/9;
+        background: var(--alt);
+      }
+      .pub-card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .pub-img-fallback {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--gold-pale), var(--alt));
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .pub-img-fallback svg {
+        opacity: 0.28;
+      }
+      .pub-img-fallback span {
+        font-size: 0.66rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gray-l);
+      }
+      img.no-img {
+        display: none !important;
+      }
+      img.no-img ~ .pub-img-fallback {
+        display: flex !important;
+      }
+      img.no-img ~ .article-hero-fallback {
+        display: flex !important;
+      }
+      img.no-img ~ .article-inner-fallback {
+        display: flex !important;
+      }
+      img.no-img ~ .related-thumb-fallback {
+        display: flex !important;
+      }
+
+      /* ── ARTICLE LAYOUT ── */
+      .article-outer {
+        padding: 6.5rem 0 0;
+      }
+
+      .article-header {
+        margin-bottom: 2rem;
+      }
+      .article-breadcrumb {
+        font-size: 0.75rem;
+        color: var(--gray-l);
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .article-breadcrumb a {
+        color: var(--gold);
+        text-decoration: none;
+      }
+      .article-breadcrumb a:hover {
+        color: var(--dark);
+      }
+      .article-breadcrumb span {
+        color: var(--gray-l);
+      }
+      .article-tag {
+        display: inline-block;
+        font-size: 0.64rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        border: 1px solid rgba(183, 140, 51, 0.4);
+        padding: 0.25rem 0.75rem;
+        border-radius: 3px;
+        margin-bottom: 1rem;
+      }
+      .article-title {
+        font-family: var(--fd);
+        font-size: clamp(1.9rem, 3.5vw, 3rem);
+        font-weight: 700;
+        color: var(--dark);
+        line-height: 1.1;
+        max-width: 820px;
+        margin-bottom: 1.2rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .article-meta-item {
+        font-size: 0.8rem;
+        color: var(--gray-l);
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .article-meta-item svg {
+        color: var(--gold);
+        flex-shrink: 0;
+      }
+
+      /* Hero image */
+      .article-hero-wrap {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 21/8;
+        background: var(--alt);
+        margin-bottom: 0;
+      }
+      .article-hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .article-hero-fallback {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--gold-pale), var(--alt));
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .article-hero-fallback svg {
+        opacity: 0.3;
+      }
+
+      /* Two-column */
+      .article-columns {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 0;
+        align-items: start;
+        padding: 3rem 0 5rem;
+      }
+
+      /* LEFT */
+      .article-content {
+        padding-right: 4rem;
+        border-right: 1px solid var(--border);
+      }
+      .article-body {
+        font-size: 1rem;
+        line-height: 1.9;
+        color: var(--ink);
+        font-weight: 400;
+      }
+      .article-body p {
+        margin-bottom: 1.5rem;
+      }
+      .article-body h2 {
+        font-family: var(--fd);
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin: 2.5rem 0 1rem;
+        line-height: 1.2;
+      }
+      .article-body h3 {
+        font-family: var(--fd);
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--dark);
+        margin: 2rem 0 0.8rem;
+      }
+      .article-body blockquote {
+        border-left: 3px solid var(--gold);
+        padding: 0.5rem 1.5rem;
+        margin: 2rem 0;
+        font-style: italic;
+        color: var(--gray);
+        background: var(--gold-pale);
+        border-radius: 0 4px 4px 0;
+      }
+      .article-body ul,
+      .article-body ol {
+        margin-left: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .article-body li {
+        margin-bottom: 0.5rem;
+        font-size: 0.97rem;
+      }
+      .article-date-author {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        padding: 1.4rem 0;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 2.5rem;
+      }
+      .article-date-author span {
+        font-size: 0.8rem;
+        color: var(--gray-l);
+      }
+      .article-date-author strong {
+        color: var(--ink);
+      }
+
+      .article-inner-img-wrap {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 16/7;
+        background: var(--alt);
+        margin: 2.5rem 0;
+      }
+      .article-inner-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .article-inner-fallback {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--gold-pale), var(--alt));
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .article-inner-fallback svg {
+        opacity: 0.3;
+      }
+      .article-img-caption {
+        font-size: 0.75rem;
+        color: var(--gray-l);
+        margin-top: 0.6rem;
+        font-style: italic;
+      }
+
+      /* RIGHT: Sidebar */
+      .article-sidebar {
+        padding-left: 2.5rem;
+        position: sticky;
+        top: 88px;
+      }
+      .sidebar-section {
+        margin-bottom: 2.5rem;
+      }
+      .sidebar-title {
+        font-family: var(--fd);
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 1.2rem;
+        padding-bottom: 0.65rem;
+        border-bottom: 2px solid var(--gold-pale);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .sidebar-title span {
+        display: inline-block;
+        width: 12px;
+        height: 2px;
+        background: var(--gold);
+        flex-shrink: 0;
+      }
+
+      .author-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        padding: 1.4rem;
+        margin-bottom: 2.5rem;
+      }
+      .author-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--gold-pale);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.9rem;
+        overflow: hidden;
+        border: 2px solid var(--gold-pale);
+      }
+      .author-avatar svg {
+        opacity: 0.4;
+      }
+      .author-name {
+        font-family: var(--fd);
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 0.2rem;
+      }
+      .author-role {
+        font-size: 0.75rem;
+        color: var(--gold);
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.75rem;
+      }
+      .author-bio {
+        font-size: 0.8rem;
+        color: var(--gray);
+        line-height: 1.65;
+      }
+
+      .related-item {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 0.9rem;
+        padding: 0.95rem 0;
+        border-bottom: 1px solid var(--border);
+        text-decoration: none;
+        color: inherit;
+        transition: background var(--tr);
+      }
+      .related-item:first-child {
+        border-top: 1px solid var(--border);
+      }
+      .related-item:hover .related-title {
+        color: var(--gold);
+      }
+      .related-thumb {
+        overflow: hidden;
+        aspect-ratio: 1;
+        background: var(--alt);
+        position: relative;
+      }
+      .related-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .related-thumb-fallback {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--gold-pale), var(--alt));
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .related-thumb-fallback svg {
+        opacity: 0.3;
+      }
+      .related-item:hover .related-thumb img {
+        transform: scale(1.07);
+      }
+      .related-tag {
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.3rem;
+        display: block;
+      }
+      .related-title {
+        font-family: var(--fd);
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--dark);
+        line-height: 1.3;
+        transition: color var(--tr);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .related-author {
+        font-size: 0.7rem;
+        color: var(--gray-l);
+        margin-top: 0.35rem;
+      }
+
+      /* MORE PUBLICATIONS */
+      .more-section {
+        background: var(--alt);
+        padding: 5rem 0;
+        border-top: 1px solid var(--border);
+      }
+      .more-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+      }
+      .btn-see-all {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.55rem 1.35rem;
+        background: var(--dark);
+        color: #fff;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background var(--tr);
+      }
+      .btn-see-all:hover {
+        background: var(--gold);
+      }
+
+      .pub-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+      }
+      .pub-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform var(--tr),
+          box-shadow var(--tr);
+      }
+      .pub-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+      }
+      .pub-card:hover .pub-card-img {
+        transform: scale(1.05);
+      }
+      .pub-card-body {
+        padding: 1.1rem 1.15rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .pub-card-title {
+        font-family: var(--fd);
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--dark);
+        line-height: 1.35;
+        margin-bottom: 0.5rem;
+      }
+      .pub-card-excerpt {
+        font-size: 0.78rem;
+        color: var(--gray);
+        line-height: 1.65;
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .pub-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1rem;
+        padding-top: 0.85rem;
+        border-top: 1px solid var(--border);
+      }
+      .pub-author {
+        font-size: 0.73rem;
+        color: var(--gray-l);
+        font-weight: 500;
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--dark);
+        color: rgba(245, 243, 239, 0.6);
+        padding: 4.5rem 0 2rem;
+        border-top: 1px solid rgba(183, 140, 51, 0.18);
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .footer-brand img {
+        height: 44px;
+        filter: brightness(0) invert(1);
+        opacity: 0.85;
+        margin-bottom: 1.2rem;
+        display: block;
+      }
+      .footer-brand-fb {
+        font-family: var(--fd);
+        font-size: 1.4rem;
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        display: none;
+      }
+      .footer-addr {
+        font-size: 0.83rem;
+        line-height: 1.85;
+        margin-bottom: 0.75rem;
+      }
+      .footer-ct {
+        font-size: 0.82rem;
+        margin-bottom: 0.4rem;
+      }
+      .footer-ct a {
+        color: var(--gold);
+        text-decoration: none;
+        transition: color var(--tr);
+      }
+      .footer-ct a:hover {
+        color: var(--gold-l);
+      }
+      .social-icons {
+        display: flex;
+        gap: 0.65rem;
+        margin-top: 1.25rem;
+      }
+      .social-icon {
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(245, 243, 239, 0.6);
+        text-decoration: none;
+        transition:
+          background var(--tr),
+          border-color var(--tr),
+          color var(--tr),
+          transform var(--tr);
+      }
+      .social-icon:hover {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+      .footer-col h4 {
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #fff;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+      }
+      .footer-col ul {
+        list-style: none;
+      }
+      .footer-col ul li {
+        margin-bottom: 0.65rem;
+      }
+      .footer-col ul li a {
+        font-size: 0.83rem;
+        color: rgba(245, 243, 239, 0.55);
+        text-decoration: none;
+        transition: color var(--tr);
+      }
+      .footer-col ul li a:hover {
+        color: var(--gold);
+      }
+      .footer-bottom {
+        padding-top: 2rem;
+        text-align: center;
+      }
+      .footer-copy {
+        font-size: 0.78rem;
+        color: rgba(245, 243, 239, 0.3);
+      }
+      .footer-copy strong {
+        color: rgba(183, 140, 51, 0.75);
+        font-weight: 500;
+      }
+
+      @media (max-width: 1024px) {
+        .article-columns {
+          grid-template-columns: 1fr;
+        }
+        .article-content {
+          padding-right: 0;
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+          padding-bottom: 3rem;
+          margin-bottom: 3rem;
+        }
+        .article-sidebar {
+          padding-left: 0;
+          position: static;
+        }
+        .pub-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 2.5rem;
+        }
+      }
+      @media (max-width: 768px) {
+        nav {
+          padding: 0 1.25rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .pub-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="index.html" class="nav-logo">
+        <img
+          src="logo.png"
+          alt="UTHH"
+          onerror="
+            this.style.display = 'none';
+            this.nextElementSibling.style.display = 'block';
+          "
+        />
+        <span class="nav-logo-fb">UTHH</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#cuerpos">Cuerpos Académicos</a></li>
+        <li><a href="publicaciones.html">Divulgación</a></li>
+        <li><a href="login.html" class="btn-login">Iniciar sesión</a></li>
+      </ul>
+    </nav>
+
+    <!-- ARTICLE HEADER -->
+    <div class="article-outer">
+      <div class="container">
+        <div class="article-header">
+          <div class="article-breadcrumb">
+            <a href="index.html">Inicio</a>
+            <span>/</span>
+            <a href="publicaciones.html">Publicaciones</a>
+            <span>/</span>
+            <span>Artículo</span>
+          </div>
+          <span class="article-tag">Tecnología</span>
+          <h1 class="article-title">
+            Inteligencia Artificial en Entornos Educativos Rurales de la
+            Huasteca Hidalguense: Retos, Avances y Perspectivas
+          </h1>
+          <div class="article-meta">
+            <div class="article-meta-item">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <span>8 min de lectura</span>
+            </div>
+            <div class="article-meta-item">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span>12 de enero, 2025</span>
+            </div>
+            <div class="article-meta-item">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span>Dr. Miguel Hernández Reyes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero image — ✅ CAMBIADA A CAU1.jpg -->
+      <div class="container">
+        <div class="article-hero-wrap">
+          <img
+            class="article-hero-img"
+            src="CAU1.jpg"
+            alt="Artículo principal"
+            onerror="this.classList.add('no-img')"
+          />
+          <div class="article-hero-fallback">
+            <svg
+              width="64"
+              height="64"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#B78C33"
+              stroke-width="1"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="M21 15l-5-5L5 21" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- TWO COLUMNS -->
+      <div class="container">
+        <div class="article-columns">
+          <!-- LEFT: Article content -->
+          <div class="article-content">
+            <div class="article-date-author">
+              <span><strong>Publicado:</strong> 12 de enero de 2025</span>
+              <span><strong>Autor:</strong> Dr. Miguel Hernández Reyes</span>
+              <span
+                ><strong>CA:</strong> Tecnologías de Información y
+                Comunicación</span
+              >
+            </div>
+
+            <div class="article-body">
+              <p>
+                La incorporación de herramientas de inteligencia artificial (IA)
+                en el ámbito educativo representa uno de los cambios más
+                significativos de la última década. Sin embargo, su adopción en
+                zonas rurales de México, y particularmente en la región de la
+                Huasteca Hidalguense, enfrenta desafíos estructurales que van
+                más allá de la simple disponibilidad tecnológica. Conectividad
+                limitada, infraestructura obsoleta, formación docente
+                insuficiente y barreras culturales configuran un panorama
+                complejo donde la tecnología, por sí sola, resulta insuficiente.
+              </p>
+              <p>
+                Este artículo presenta los resultados de una investigación de
+                dos años llevada a cabo en colaboración con seis instituciones
+                educativas del municipio de Huejutla de Reyes y comunidades
+                aledañas. El objetivo principal fue evaluar la viabilidad
+                técnica, pedagógica y social de implementar sistemas de IA
+                adaptativa en entornos con conectividad intermitente y recursos
+                computacionales limitados.
+              </p>
+
+              <h2>Contexto y justificación</h2>
+              <p>
+                La Huasteca Hidalguense alberga a más de 400,000 personas, de
+                las cuales aproximadamente el 38% habita en localidades con
+                acceso deficiente a servicios de internet. Según datos del INEGI
+                2020, el 54% de los hogares en zonas rurales del municipio de
+                Huejutla carece de computadora, y solo el 23% cuenta con acceso
+                a internet fijo. Estas cifras contrastan marcadamente con los
+                promedios nacionales, que sitúan la disponibilidad de internet
+                en el 52% de los hogares.
+              </p>
+              <p>
+                Ante este escenario, la investigación partió de una premisa
+                fundamental: la tecnología debe adaptarse al contexto, no al
+                revés. En lugar de replicar modelos desarrollados para entornos
+                urbanos con infraestructura robusta, el equipo diseñó soluciones
+                basadas en modelos de IA ligeros, capaces de operar en
+                dispositivos de gama baja y funcionar con conectividad
+                intermitente o incluso en modo sin conexión.
+              </p>
+
+              <blockquote>
+                "La inteligencia artificial no puede ser un privilegio de las
+                ciudades. Si no resolvemos la brecha tecnológica en las
+                comunidades rurales, estaremos ensanchando la desigualdad
+                educativa, no reduciéndola."
+                <br /><br />— Dr. Miguel Hernández Reyes
+              </blockquote>
+
+              <h2>Metodología</h2>
+              <p>
+                La investigación adoptó un enfoque mixto que combinó análisis
+                cuantitativo del desempeño académico con observación etnográfica
+                y entrevistas a profundidad con docentes, estudiantes y padres
+                de familia. En total, participaron 847 alumnos de nivel primaria
+                y secundaria, 64 docentes y 12 directivos escolares distribuidos
+                en las seis instituciones participantes.
+              </p>
+              <p>
+                El sistema implementado —denominado internamente
+                <em>AulaAdaptativa</em>— consistía en una aplicación de
+                escritorio desarrollada con Python y TensorFlow Lite, diseñada
+                para ejecutarse en Raspberry Pi 4 o equipos con especificaciones
+                equivalentes. La aplicación ofrecía rutas de aprendizaje
+                personalizadas en matemáticas y español, ajustando la dificultad
+                y el estilo de presentación según el historial de cada
+                estudiante.
+              </p>
+
+              <h3>Fases del estudio</h3>
+              <p>
+                El proyecto se estructuró en tres fases principales. La primera
+                fase, de diagnóstico (6 meses), se dedicó al levantamiento de
+                datos sobre infraestructura, formación docente y niveles de
+                competencia digital. La segunda fase (12 meses) correspondió a
+                la implementación piloto y la capacitación intensiva del
+                personal docente. La tercera fase (6 meses) se enfocó en la
+                evaluación de resultados y la sistematización de aprendizajes.
+              </p>
+              <ul>
+                <li>
+                  <strong>Fase I – Diagnóstico:</strong> Inventario de
+                  dispositivos, análisis de conectividad, evaluaciones
+                  diagnósticas a alumnos.
+                </li>
+                <li>
+                  <strong>Fase II – Implementación:</strong> Instalación del
+                  sistema, capacitación docente, seguimiento semanal de métricas
+                  de uso.
+                </li>
+                <li>
+                  <strong>Fase III – Evaluación:</strong> Comparación de
+                  resultados pre y post intervención, focus groups, ajustes al
+                  modelo.
+                </li>
+              </ul>
+
+              <h2>Resultados principales</h2>
+              <p>
+                Los datos recabados al concluir el ciclo de implementación
+                mostraron resultados alentadores. En promedio, los alumnos que
+                utilizaron AulaAdaptativa de manera regular (al menos tres
+                sesiones por semana) mejoraron su puntuación en evaluaciones
+                estandarizadas de matemáticas en un 18.4% respecto al grupo de
+                control. En comprensión lectora, la mejora fue del 12.7%.
+              </p>
+              <p>
+                Sin embargo, los beneficios no se distribuyeron de manera
+                uniforme. Las instituciones que contaron con docentes más
+                activos en el acompañamiento del proceso mostraron resultados
+                significativamente superiores, lo que evidencia que la
+                herramienta tecnológica no puede sustituir el rol mediador del
+                maestro, sino que debe complementarlo.
+              </p>
+              <p>
+                Otro hallazgo relevante fue el impacto positivo en la motivación
+                de los estudiantes. El 78% de los alumnos encuestados reportó
+                que el sistema les resultaba "más interesante" que los métodos
+                de enseñanza tradicionales, y el 65% indicó que prefería
+                trabajar con AulaAdaptativa para repasar contenidos.
+              </p>
+
+              <!-- Inner image -->
+              <div class="article-inner-img-wrap">
+                <img
+                  class="article-inner-img"
+                  src="P3.JPG"
+                  alt="Aula con tecnología"
+                  onerror="this.classList.add('no-img')"
+                />
+                <div class="article-inner-fallback">
+                  <svg
+                    width="48"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#B78C33"
+                    stroke-width="1.2"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <path d="M21 15l-5-5L5 21" />
+                  </svg>
+                </div>
+              </div>
+              <p class="article-img-caption">
+                Alumnos de secundaria utilizando AulaAdaptativa en una de las
+                instituciones participantes. — UTHH, 2024.
+              </p>
+
+              <h2>Retos y limitaciones</h2>
+              <p>
+                A pesar de los resultados positivos, la investigación también
+                documentó obstáculos considerables. La falta de mantenimiento
+                preventivo de los equipos fue la principal causa de
+                interrupciones en el uso del sistema, afectando al 40% de las
+                instituciones participantes en algún momento del ciclo de
+                implementación. Asimismo, la rotación de docentes a mitad del
+                ciclo escolar generó retrocesos en el proceso de adopción
+                tecnológica.
+              </p>
+              <p>
+                Desde la perspectiva cultural, se identificaron tensiones en
+                comunidades con fuerte arraigo a la tradición oral y a métodos
+                de enseñanza centrados en la figura del maestro como única
+                fuente de conocimiento. En estos contextos, fue necesario
+                replantear la estrategia de introducción del sistema,
+                privilegiando el trabajo colaborativo sobre el aprendizaje
+                individualizado.
+              </p>
+
+              <h2>Conclusiones y proyecciones</h2>
+              <p>
+                La evidencia recabada permite sostener que la IA tiene potencial
+                real para contribuir a la mejora educativa en contextos rurales,
+                siempre y cuando su implementación esté guiada por un profundo
+                conocimiento del contexto local, una formación docente continua
+                y sostenida, y una infraestructura tecnológica mínima pero
+                confiable.
+              </p>
+              <p>
+                Como próximos pasos, el equipo de investigación trabaja en una
+                segunda versión de AulaAdaptativa que incorporará procesamiento
+                de lenguaje natural en náhuatl y tepehua —lenguas indígenas
+                prevalentes en la Huasteca Hidalguense— con el objetivo de
+                reducir las barreras lingüísticas que aún persisten en las
+                comunidades más alejadas.
+              </p>
+              <p>
+                Esta investigación fue financiada parcialmente por el Programa
+                de Desarrollo Profesional Docente (PRODEP) y contó con el apoyo
+                logístico de los municipios de Huejutla de Reyes, Jaltocán y
+                Atlapexco. Los autores agradecen la colaboración de directivos,
+                docentes y comunidades escolares participantes.
+              </p>
+            </div>
+          </div>
+          <!-- /article-content -->
+
+          <!-- RIGHT: Sidebar -->
+          <div class="article-sidebar">
+            <div class="author-card">
+              <div class="author-avatar">
+                <svg
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.5"
+                >
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <p class="author-name">Dr. Miguel Hernández Reyes</p>
+              <p class="author-role">Cuerpo Académico CA·01 — Tecnología</p>
+              <p class="author-bio">
+                Doctor en Ciencias Computacionales por el CINVESTAV.
+                Investigador SNI Nivel I. Especialista en inteligencia
+                artificial aplicada a entornos educativos de bajo recurso y
+                comunidades rurales de México.
+              </p>
+            </div>
+
+            <div class="sidebar-section">
+              <p class="sidebar-title"><span></span> Artículos del autor</p>
+
+              <a href="publicacion.html" class="related-item">
+                <div class="related-thumb">
+                  <img
+                    src="P4.JPG"
+                    alt=""
+                    onerror="this.classList.add('no-img')"
+                  />
+                  <div class="related-thumb-fallback">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#B78C33"
+                      stroke-width="1.5"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <span class="related-tag">Innovación</span>
+                  <p class="related-title">
+                    Automatización Agrícola Mediante Sensores IoT
+                  </p>
+                  <p class="related-author">Dr. M. Hernández · 2024</p>
+                </div>
+              </a>
+
+              <a href="publicacion.html" class="related-item">
+                <div class="related-thumb">
+                  <img
+                    src="P5.JPG"
+                    alt=""
+                    onerror="this.classList.add('no-img')"
+                  />
+                  <div class="related-thumb-fallback">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#B78C33"
+                      stroke-width="1.5"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <span class="related-tag">Educación</span>
+                  <p class="related-title">
+                    Competencias Digitales Docentes Post-Pandemia
+                  </p>
+                  <p class="related-author">Dr. M. Hernández · 2024</p>
+                </div>
+              </a>
+
+              <a href="publicacion.html" class="related-item">
+                <div class="related-thumb">
+                  <img
+                    src="P6.JPG"
+                    alt=""
+                    onerror="this.classList.add('no-img')"
+                  />
+                  <div class="related-thumb-fallback">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#B78C33"
+                      stroke-width="1.5"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <span class="related-tag">Tecnología</span>
+                  <p class="related-title">
+                    Blockchain para Trazabilidad Agroalimentaria
+                  </p>
+                  <p class="related-author">Dr. M. Hernández · 2023</p>
+                </div>
+              </a>
+
+              <a href="publicacion.html" class="related-item">
+                <div class="related-thumb">
+                  <img
+                    src="P2.JPG"
+                    alt=""
+                    onerror="this.classList.add('no-img')"
+                  />
+                  <div class="related-thumb-fallback">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#B78C33"
+                      stroke-width="1.5"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <span class="related-tag">Software</span>
+                  <p class="related-title">
+                    Sistemas GIS para Gestión Municipal
+                  </p>
+                  <p class="related-author">Dr. M. Hernández · 2023</p>
+                </div>
+              </a>
+
+              <a href="publicacion.html" class="related-item">
+                <div class="related-thumb">
+                  <img
+                    src="P3.JPG"
+                    alt=""
+                    onerror="this.classList.add('no-img')"
+                  />
+                  <div class="related-thumb-fallback">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#B78C33"
+                      stroke-width="1.5"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <span class="related-tag">Salud</span>
+                  <p class="related-title">
+                    Modelos Predictivos en Epidemiología Regional
+                  </p>
+                  <p class="related-author">Dr. M. Hernández · 2022</p>
+                </div>
+              </a>
+            </div>
+
+            <div class="sidebar-section">
+              <p class="sidebar-title"><span></span> Temas relacionados</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem">
+                <span
+                  style="
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                    padding: 0.3rem 0.75rem;
+                    background: var(--gold-pale);
+                    color: var(--gold);
+                    border-radius: 3px;
+                  "
+                  >IA</span
+                >
+                <span
+                  style="
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                    padding: 0.3rem 0.75rem;
+                    background: var(--gold-pale);
+                    color: var(--gold);
+                    border-radius: 3px;
+                  "
+                  >Educación</span
+                >
+                <span
+                  style="
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                    padding: 0.3rem 0.75rem;
+                    background: var(--gold-pale);
+                    color: var(--gold);
+                    border-radius: 3px;
+                  "
+                  >Ruralidad</span
+                >
+                <span
+                  style="
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                    padding: 0.3rem 0.75rem;
+                    background: var(--gold-pale);
+                    color: var(--gold);
+                    border-radius: 3px;
+                  "
+                  >Machine Learning</span
+                >
+                <span
+                  style="
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                    padding: 0.3rem 0.75rem;
+                    background: var(--gold-pale);
+                    color: var(--gold);
+                    border-radius: 3px;
+                  "
+                  >Huasteca</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MORE PUBLICATIONS -->
+    <section class="more-section">
+      <div class="container">
+        <div class="more-header">
+          <div>
+            <span class="sec-label">Seguir explorando</span>
+            <h2 class="sec-title">Más publicaciones</h2>
+            <div class="sec-line"></div>
+          </div>
+          <a href="publicaciones.html" class="btn-see-all">Ver todas</a>
+        </div>
+        <div class="pub-grid">
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P2.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Sustentabilidad</span>
+              <h3 class="pub-card-title">
+                Energía Solar Fotovoltaica: Caso Huasteca Hidalguense
+              </h3>
+              <p class="pub-card-excerpt">
+                Análisis técnico-económico de sistemas fotovoltaicos en
+                viviendas rurales.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author">Mtra. L. Gutiérrez</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P3.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Salud</span>
+              <h3 class="pub-card-title">
+                Detección Temprana de Enfermedades Crónicas con ML
+              </h3>
+              <p class="pub-card-excerpt">
+                Modelo de machine learning para anticipar diabetes e
+                hipertensión en la Huasteca.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author">Dr. R. Pérez</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P4.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Innovación</span>
+              <h3 class="pub-card-title">
+                Automatización Agrícola Mediante Sensores IoT
+              </h3>
+              <p class="pub-card-excerpt">
+                Redes de sensores inalámbricos para monitoreo de cultivos en
+                tiempo real.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author">Ing. C. Flores</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P5.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Educación</span>
+              <h3 class="pub-card-title">
+                Competencias Digitales Docentes Post-Pandemia
+              </h3>
+              <p class="pub-card-excerpt">
+                Evaluación de la adopción de herramientas digitales en el
+                personal docente universitario.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author">Mtra. A. Ramírez</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img
+              src="logo.png"
+              alt="UTHH"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'block';
+              "
+            />
+            <span class="footer-brand-fb">UTHH</span>
+            <p class="footer-addr">
+              Carretera Huejutla - Chalahuiyapa S/N,<br />C.P. 43000, Huejutla
+              de Reyes, Hidalgo.
+            </p>
+            <p class="footer-ct">📞 789 896 2088 al 91</p>
+            <p class="footer-ct">
+              ✉ <a href="mailto:rectoria@uthh.edu.mx">rectoria@uthh.edu.mx</a>
+            </p>
+            <div class="social-icons">
+              <a href="#" class="social-icon"
+                ><svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+                  /></svg
+              ></a>
+              <a href="#" class="social-icon"
+                ><svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg
+              ></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Centro de Ayuda</h4>
+            <ul>
+              <li><a href="#">Preguntas frecuentes</a></li>
+              <li><a href="#">Mapa del sitio</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Avisos</h4>
+            <ul>
+              <li><a href="#">Términos de uso</a></li>
+              <li><a href="#">Políticas de privacidad</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Enlaces</h4>
+            <ul>
+              <li><a href="#" target="_blank">PODAI</a></li>
+              <li><a href="#" target="_blank">UTHH Virtual</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="footer-copy">
+            Copyright © 2018.
+            <strong>Universidad Tecnológica de la Huasteca Hidalguense.</strong>
+            Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

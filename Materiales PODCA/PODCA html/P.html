@@ -1,0 +1,1430 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Publicaciones — UTHH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --gold: #b78c33;
+        --gold-l: #d4aa55;
+        --gold-pale: #f5edd8;
+        --dark: #0f0f0f;
+        --ink: #2e2e2e;
+        --gray: #6b6b6b;
+        --gray-l: #9a9a9a;
+        --border: #e4ddd0;
+        --cream: #f7f4ee;
+        --white: #ffffff;
+        --alt: #f0ece4;
+        --fd: "Playfair Display", Georgia, serif;
+        --fb: "DM Sans", sans-serif;
+        --tr: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--fb);
+        background: var(--cream);
+        color: var(--ink);
+        overflow-x: hidden;
+      }
+
+      /* ── NAV (same as index) ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 3rem;
+        height: 68px;
+        background: rgba(15, 15, 15, 0.94);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid rgba(183, 140, 51, 0.15);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+      }
+      .nav-logo img {
+        height: 40px;
+        filter: brightness(0) invert(1);
+        opacity: 0.9;
+        transition: opacity var(--tr);
+      }
+      .nav-logo:hover img {
+        opacity: 0.7;
+      }
+      .nav-logo-fb {
+        font-family: var(--fd);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #fff;
+        display: none;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        transition: color var(--tr);
+        position: relative;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--gold);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform var(--tr);
+      }
+      .nav-links a:hover {
+        color: #fff;
+      }
+      .nav-links a:hover::after {
+        transform: scaleX(1);
+      }
+      .btn-login {
+        padding: 0.48rem 1.4rem;
+        background: var(--gold) !important;
+        color: #fff !important;
+        border-radius: 50px;
+        font-weight: 600 !important;
+        font-size: 0.85rem !important;
+        transition:
+          background var(--tr),
+          box-shadow var(--tr) !important;
+      }
+      .btn-login::after {
+        display: none !important;
+      }
+      .btn-login:hover {
+        background: var(--gold-l) !important;
+        box-shadow: 0 6px 18px rgba(183, 140, 51, 0.35) !important;
+      }
+
+      /* ── PAGE HEADER ── */
+      .page-header {
+        padding: 7rem 0 3.5rem;
+        background: var(--dark);
+        border-bottom: 1px solid rgba(183, 140, 51, 0.18);
+      }
+      .page-header .container {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      .ph-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        display: block;
+        margin-bottom: 0.6rem;
+      }
+      .ph-title {
+        font-family: var(--fd);
+        font-size: clamp(2rem, 3.5vw, 3rem);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.12;
+      }
+      .ph-sub {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 0.6rem;
+        font-weight: 300;
+      }
+
+      /* ── SHARED ── */
+      .container {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .sec-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        display: block;
+        margin-bottom: 0.65rem;
+      }
+      .sec-title {
+        font-family: var(--fd);
+        font-size: clamp(1.7rem, 2.5vw, 2.2rem);
+        font-weight: 700;
+        color: var(--dark);
+        line-height: 1.15;
+      }
+      .sec-line {
+        width: 44px;
+        height: 3px;
+        background: var(--gold);
+        border-radius: 2px;
+        margin-top: 0.9rem;
+      }
+
+      /* ── SHARED CARD ── */
+      .pub-img-wrap {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 16/9;
+        background: var(--alt);
+      }
+      .pub-card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .pub-img-fallback {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--gold-pale), var(--alt));
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .pub-img-fallback svg {
+        opacity: 0.28;
+      }
+      .pub-img-fallback span {
+        font-size: 0.66rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gray-l);
+      }
+      img.no-img {
+        display: none !important;
+      }
+      img.no-img ~ .pub-img-fallback {
+        display: flex !important;
+      }
+      .pub-tag {
+        font-size: 0.64rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 600;
+        margin-bottom: 0.45rem;
+        display: block;
+      }
+      .pub-author-line {
+        font-size: 0.73rem;
+        color: var(--gray-l);
+        font-weight: 500;
+      }
+      .btn-read {
+        font-size: 0.74rem;
+        font-weight: 600;
+        color: var(--gold);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        transition:
+          gap var(--tr),
+          color var(--tr);
+      }
+      .btn-read:hover {
+        color: var(--dark);
+        gap: 0.55rem;
+      }
+
+      /* ══════════════════════════════════
+       FEATURED BLOCK — 1 grande + 3 apilados
+    ══════════════════════════════════ */
+      .featured-section {
+        padding: 3.5rem 0 0;
+      }
+
+      .featured-block {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+
+      /* LEFT — grande */
+      .feat-main {
+        position: relative;
+        overflow: hidden;
+        background: var(--white);
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border);
+        text-decoration: none;
+        color: inherit;
+      }
+      .feat-main:hover .feat-main-img {
+        transform: scale(1.04);
+      }
+      .feat-main-img-wrap {
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+        aspect-ratio: 3/2.2;
+      }
+      .feat-main-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .feat-main-body {
+        padding: 1.6rem 1.75rem 2rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .feat-main-title {
+        font-family: var(--fd);
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--dark);
+        line-height: 1.22;
+        margin-bottom: 0.7rem;
+      }
+      .feat-main-excerpt {
+        font-size: 0.88rem;
+        color: var(--gray);
+        line-height: 1.72;
+        flex: 1;
+      }
+      .feat-main-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1.4rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+      }
+
+      /* RIGHT — 3 apiladas horizontales (imagen a la derecha) */
+      .feat-side {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .feat-side-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: 1fr 160px;
+        min-height: 0;
+        flex: 1;
+        text-decoration: none;
+        color: inherit;
+        transition: box-shadow var(--tr);
+        overflow: hidden;
+      }
+      .feat-side-card:hover {
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+      }
+      .feat-side-card:hover .feat-side-img {
+        transform: scale(1.05);
+      }
+
+      .feat-side-body {
+        padding: 1.1rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .feat-side-title {
+        font-family: var(--fd);
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: var(--dark);
+        line-height: 1.3;
+        margin-bottom: 0.45rem;
+      }
+      .feat-side-excerpt {
+        font-size: 0.78rem;
+        color: var(--gray);
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        flex: 1;
+      }
+      .feat-side-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 0.9rem;
+      }
+
+      .feat-side-img-wrap {
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+      }
+      .feat-side-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* fallback for feat images */
+      .feat-fallback {
+        width: 100%;
+        height: 100%;
+        min-height: 120px;
+        background: linear-gradient(135deg, var(--gold-pale), var(--alt));
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .feat-fallback svg {
+        opacity: 0.28;
+      }
+      img.no-img ~ .feat-fallback {
+        display: flex !important;
+      }
+
+      /* ══════════════════════════════════
+       MORE SECTION — grid 4 cols
+    ══════════════════════════════════ */
+      .more-section {
+        padding: 3.5rem 0 5rem;
+      }
+      .more-header {
+        margin-bottom: 2.5rem;
+      }
+
+      .pub-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        margin-bottom: 6px;
+      }
+
+      /* Standard card (same as index but no carousel) */
+      .pub-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform var(--tr),
+          box-shadow var(--tr);
+      }
+      .pub-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+      }
+      .pub-card:hover .pub-card-img {
+        transform: scale(1.05);
+      }
+      .pub-card-body {
+        padding: 1.1rem 1.15rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .pub-card-title {
+        font-family: var(--fd);
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--dark);
+        line-height: 1.35;
+        margin-bottom: 0.55rem;
+      }
+      .pub-card-excerpt {
+        font-size: 0.78rem;
+        color: var(--gray);
+        line-height: 1.65;
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .pub-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1rem;
+        padding-top: 0.85rem;
+        border-top: 1px solid var(--border);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--dark);
+        color: rgba(245, 243, 239, 0.6);
+        padding: 4.5rem 0 2rem;
+        border-top: 1px solid rgba(183, 140, 51, 0.18);
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .footer-brand img {
+        height: 44px;
+        filter: brightness(0) invert(1);
+        opacity: 0.85;
+        margin-bottom: 1.2rem;
+        display: block;
+      }
+      .footer-brand-fb {
+        font-family: var(--fd);
+        font-size: 1.4rem;
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        display: none;
+      }
+      .footer-addr {
+        font-size: 0.83rem;
+        line-height: 1.85;
+        margin-bottom: 0.75rem;
+      }
+      .footer-ct {
+        font-size: 0.82rem;
+        margin-bottom: 0.4rem;
+      }
+      .footer-ct a {
+        color: var(--gold);
+        text-decoration: none;
+        transition: color var(--tr);
+      }
+      .footer-ct a:hover {
+        color: var(--gold-l);
+      }
+      .social-icons {
+        display: flex;
+        gap: 0.65rem;
+        margin-top: 1.25rem;
+      }
+      .social-icon {
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(245, 243, 239, 0.6);
+        text-decoration: none;
+        transition:
+          background var(--tr),
+          border-color var(--tr),
+          color var(--tr),
+          transform var(--tr);
+      }
+      .social-icon:hover {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+      .footer-col h4 {
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #fff;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+      }
+      .footer-col ul {
+        list-style: none;
+      }
+      .footer-col ul li {
+        margin-bottom: 0.65rem;
+      }
+      .footer-col ul li a {
+        font-size: 0.83rem;
+        color: rgba(245, 243, 239, 0.55);
+        text-decoration: none;
+        transition: color var(--tr);
+      }
+      .footer-col ul li a:hover {
+        color: var(--gold);
+      }
+      .footer-bottom {
+        padding-top: 2rem;
+        text-align: center;
+      }
+      .footer-copy {
+        font-size: 0.78rem;
+        color: rgba(245, 243, 239, 0.3);
+      }
+      .footer-copy strong {
+        color: rgba(183, 140, 51, 0.75);
+        font-weight: 500;
+      }
+
+      @media (max-width: 1024px) {
+        .featured-block {
+          grid-template-columns: 1fr;
+        }
+        .feat-side {
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+        .feat-side-card {
+          flex: 1 1 calc(50% - 3px);
+        }
+        .pub-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 2.5rem;
+        }
+      }
+      @media (max-width: 768px) {
+        nav {
+          padding: 0 1.25rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .feat-side-card {
+          grid-template-columns: 1fr;
+          flex: 1 1 100%;
+        }
+        .feat-side-img-wrap {
+          height: 180px;
+        }
+        .pub-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="index.html" class="nav-logo">
+        <img
+          src="logo.png"
+          alt="UTHH"
+          onerror="
+            this.style.display = 'none';
+            this.nextElementSibling.style.display = 'block';
+          "
+        />
+        <span class="nav-logo-fb">UTHH</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#cuerpos">Cuerpos Académicos</a></li>
+        <li>
+          <a href="publicaciones.html" style="color: #fff">Divulgación</a>
+        </li>
+        <li><a href="login.html" class="btn-login">Iniciar sesión</a></li>
+      </ul>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="container">
+        <div>
+          <span class="ph-label">Conocimiento Abierto</span>
+          <h1 class="ph-title">Publicaciones</h1>
+          <p class="ph-sub">
+            Investigación, artículos y divulgación científica de la UTHH
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURED BLOCK -->
+    <section class="featured-section">
+      <div class="container">
+        <div class="featured-block">
+          <!-- GRANDE (izquierda) -->
+          <a href="publicacion.html" class="feat-main">
+            <div class="feat-main-img-wrap">
+              <img
+                class="feat-main-img"
+                src="P1.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="feat-fallback">
+                <svg
+                  width="52"
+                  height="52"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.2"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" />
+                </svg>
+              </div>
+            </div>
+            <div class="feat-main-body">
+              <span class="pub-tag">Tecnología</span>
+              <p class="feat-main-title">
+                Inteligencia Artificial en Entornos Educativos Rurales de la
+                Huasteca Hidalguense
+              </p>
+              <p class="feat-main-excerpt">
+                Exploración de herramientas de inteligencia artificial adaptadas
+                al contexto socioeconómico de la región Huasteca, evaluando su
+                impacto en el rendimiento académico, la reducción de la brecha
+                digital y la accesibilidad en comunidades alejadas.
+              </p>
+              <div class="feat-main-footer">
+                <span class="pub-author-line"
+                  >Dr. M. Hernández · 12 ene 2025</span
+                >
+                <span class="btn-read">Seguir leyendo</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- 3 APILADAS (derecha, imagen a la derecha) -->
+          <div class="feat-side">
+            <a href="publicacion.html" class="feat-side-card">
+              <div class="feat-side-body">
+                <div>
+                  <span class="pub-tag">Sustentabilidad</span>
+                  <p class="feat-side-title">
+                    Energía Solar Fotovoltaica: Caso Huasteca Hidalguense
+                  </p>
+                  <p class="feat-side-excerpt">
+                    Análisis técnico-económico de sistemas fotovoltaicos en
+                    viviendas rurales, considerando radiación local y costos de
+                    inversión.
+                  </p>
+                </div>
+                <div class="feat-side-footer">
+                  <span class="pub-author-line">Mtra. L. Gutiérrez</span>
+                  <span class="btn-read">Seguir leyendo</span>
+                </div>
+              </div>
+              <div class="feat-side-img-wrap">
+                <img
+                  class="feat-side-img"
+                  src="P2.JPG"
+                  alt=""
+                  onerror="this.classList.add('no-img')"
+                />
+                <div class="feat-fallback">
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#B78C33"
+                    stroke-width="1.3"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <path d="M21 15l-5-5L5 21" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <a href="publicacion.html" class="feat-side-card">
+              <div class="feat-side-body">
+                <div>
+                  <span class="pub-tag">Salud</span>
+                  <p class="feat-side-title">
+                    Detección Temprana de Enfermedades Crónicas con ML
+                  </p>
+                  <p class="feat-side-excerpt">
+                    Modelo de machine learning aplicado a datos clínicos para
+                    anticipar diabetes e hipertensión en poblaciones
+                    vulnerables.
+                  </p>
+                </div>
+                <div class="feat-side-footer">
+                  <span class="pub-author-line">Dr. R. Pérez</span>
+                  <span class="btn-read">Seguir leyendo</span>
+                </div>
+              </div>
+              <div class="feat-side-img-wrap">
+                <img
+                  class="feat-side-img"
+                  src="P3.JPG"
+                  alt=""
+                  onerror="this.classList.add('no-img')"
+                />
+                <div class="feat-fallback">
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#B78C33"
+                    stroke-width="1.3"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <path d="M21 15l-5-5L5 21" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <a href="publicacion.html" class="feat-side-card">
+              <div class="feat-side-body">
+                <div>
+                  <span class="pub-tag">Innovación</span>
+                  <p class="feat-side-title">
+                    Automatización Agrícola Mediante Sensores IoT
+                  </p>
+                  <p class="feat-side-excerpt">
+                    Red de sensores inalámbricos para monitoreo de cultivos en
+                    tiempo real, reduciendo costos y mejorando la productividad.
+                  </p>
+                </div>
+                <div class="feat-side-footer">
+                  <span class="pub-author-line">Ing. C. Flores</span>
+                  <span class="btn-read">Seguir leyendo</span>
+                </div>
+              </div>
+              <div class="feat-side-img-wrap">
+                <img
+                  class="feat-side-img"
+                  src="P4.JPG"
+                  alt=""
+                  onerror="this.classList.add('no-img')"
+                />
+                <div class="feat-fallback">
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#B78C33"
+                    stroke-width="1.3"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <path d="M21 15l-5-5L5 21" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!-- /feat-side -->
+        </div>
+        <!-- /featured-block -->
+      </div>
+    </section>
+
+    <!-- MORE PUBLICATIONS — 3 rows x 4 -->
+    <section class="more-section">
+      <div class="container">
+        <div class="more-header">
+          <span class="sec-label">Todas las publicaciones</span>
+          <h2 class="sec-title">Más artículos</h2>
+          <div class="sec-line"></div>
+        </div>
+
+        <!-- Row 1 -->
+        <div class="pub-grid">
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P5.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Educación</span>
+              <h3 class="pub-card-title">
+                Competencias Digitales Docentes Post-Pandemia
+              </h3>
+              <p class="pub-card-excerpt">
+                Evaluación de la adopción de herramientas digitales en el
+                personal docente, identificando brechas formativas.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Mtra. A. Ramírez</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P6.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Gestión</span>
+              <h3 class="pub-card-title">
+                Modelos Ágiles en PyMEs de la Región Huasteca
+              </h3>
+              <p class="pub-card-excerpt">
+                Estudio comparativo de metodologías ágiles midiendo efectos en
+                productividad y satisfacción del cliente.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Dr. J. Mendoza</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P1.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Mecatrónica</span>
+              <h3 class="pub-card-title">
+                Robótica Colaborativa en Líneas de Manufactura Local
+              </h3>
+              <p class="pub-card-excerpt">
+                Implementación de brazos robóticos colaborativos en empresas del
+                parque industrial de Huejutla.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Ing. P. Soto</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P2.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Matemáticas</span>
+              <h3 class="pub-card-title">
+                Modelos Predictivos para Gestión de Recursos Hídricos
+              </h3>
+              <p class="pub-card-excerpt">
+                Aplicación de modelos estadísticos para optimizar la
+                distribución del agua en la región Huasteca.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Dr. H. Torres</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="pub-grid">
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P3.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Negocios</span>
+              <h3 class="pub-card-title">
+                Emprendimiento Universitario en Zonas Rurales
+              </h3>
+              <p class="pub-card-excerpt">
+                Análisis de factores que impulsan o limitan el emprendimiento
+                entre egresados en comunidades rurales.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Mtra. S. Cruz</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P4.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Software</span>
+              <h3 class="pub-card-title">
+                Sistemas de Información Geográfica Aplicados al Catastro
+              </h3>
+              <p class="pub-card-excerpt">
+                Desarrollo de una plataforma web-GIS para la gestión catastral
+                del municipio de Huejutla de Reyes.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Ing. F. Vega</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P5.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Industrial</span>
+              <h3 class="pub-card-title">
+                Lean Manufacturing en la Industria Textil Regional
+              </h3>
+              <p class="pub-card-excerpt">
+                Implementación de metodología lean en talleres textiles de la
+                Huasteca, reduciendo tiempos de ciclo en un 34%.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Ing. R. Castillo</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P6.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Salud</span>
+              <h3 class="pub-card-title">
+                Telemedicina Rural: Experiencias en la Huasteca
+              </h3>
+              <p class="pub-card-excerpt">
+                Evaluación de plataformas de teleconsulta en comunidades
+                indígenas, midiendo accesibilidad y efectividad clínica.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Dra. N. López</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="pub-grid">
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P1.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Sustentabilidad</span>
+              <h3 class="pub-card-title">
+                Biodigestores Comunitarios para Gestión de Residuos
+              </h3>
+              <p class="pub-card-excerpt">
+                Diseño y evaluación de biodigestores a pequeña escala para
+                comunidades rurales de la Huasteca.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Dr. G. Morales</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P2.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Educación</span>
+              <h3 class="pub-card-title">
+                Aprendizaje Basado en Proyectos en Ingeniería
+              </h3>
+              <p class="pub-card-excerpt">
+                Resultados de tres ciclos de aplicación de metodología ABP en
+                carreras de ingeniería de la UTHH.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Mtra. E. Díaz</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P3.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Tecnología</span>
+              <h3 class="pub-card-title">
+                Blockchain para Trazabilidad de Cadena Agroalimentaria
+              </h3>
+              <p class="pub-card-excerpt">
+                Prototipo de sistema blockchain aplicado al rastreo de productos
+                agrícolas desde el campo al consumidor.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Dr. C. Reyes</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pub-card">
+            <div class="pub-img-wrap">
+              <img
+                class="pub-card-img"
+                src="P4.JPG"
+                alt=""
+                onerror="this.classList.add('no-img')"
+              />
+              <div class="pub-img-fallback">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B78C33"
+                  stroke-width="1.3"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" /></svg
+                ><span>Sin imagen</span>
+              </div>
+            </div>
+            <div class="pub-card-body">
+              <span class="pub-tag">Gestión</span>
+              <h3 class="pub-card-title">
+                Indicadores de Desempeño en Gobiernos Municipales
+              </h3>
+              <p class="pub-card-excerpt">
+                Propuesta de cuadro de mando integral para evaluar la gestión
+                pública municipal en la Huasteca Hidalguense.
+              </p>
+              <div class="pub-card-footer">
+                <span class="pub-author-line">Dr. A. Guerrero</span
+                ><a href="publicacion.html" class="btn-read">Seguir leyendo</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img
+              src="logo.png"
+              alt="UTHH"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'block';
+              "
+            />
+            <span class="footer-brand-fb">UTHH</span>
+            <p class="footer-addr">
+              Carretera Huejutla - Chalahuiyapa S/N,<br />C.P. 43000, Huejutla
+              de Reyes, Hidalgo.
+            </p>
+            <p class="footer-ct">📞 789 896 2088 al 91</p>
+            <p class="footer-ct">
+              ✉ <a href="mailto:rectoria@uthh.edu.mx">rectoria@uthh.edu.mx</a>
+            </p>
+            <div class="social-icons">
+              <a href="#" class="social-icon"
+                ><svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+                  /></svg
+              ></a>
+              <a href="#" class="social-icon"
+                ><svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg
+              ></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Centro de Ayuda</h4>
+            <ul>
+              <li><a href="#">Preguntas frecuentes</a></li>
+              <li><a href="#">Mapa del sitio</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Avisos</h4>
+            <ul>
+              <li><a href="#">Términos de uso</a></li>
+              <li><a href="#">Políticas de privacidad</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Enlaces</h4>
+            <ul>
+              <li><a href="#" target="_blank">PODAI</a></li>
+              <li><a href="#" target="_blank">UTHH Virtual</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="footer-copy">
+            Copyright © 2018.
+            <strong>Universidad Tecnológica de la Huasteca Hidalguense.</strong>
+            Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

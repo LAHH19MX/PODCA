@@ -1,0 +1,187 @@
+"use client";
+
+import { useRouter, usePathname } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  LayoutDashboard,
+  User,
+  Edit,
+  Lock,
+  ShieldCheck,
+  ShoppingBag,
+  CreditCard,
+  Heart,
+  FileText,
+  Bell,
+  Gift,
+  HelpCircle,
+  LogOut,
+  ChevronDown,
+  ChevronRight,
+} from "lucide-react";
+import { useState } from "react";
+
+export default function Sidebar() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { logout } = useAuth();
+  const [profileExpanded, setProfileExpanded] = useState(true);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push("/");
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
+  };
+
+  const isActive = (path: string) => pathname === path;
+
+  const menuItems = [
+    {
+      id: "my-account",
+      label: "Mi cuenta",
+      icon: LayoutDashboard,
+      path: "/client/account",
+    },
+    {
+      id: "profile",
+      label: "Información Personal",
+      icon: User,
+      expandable: true,
+      subItems: [
+        {
+          id: "update-data",
+          label: "Actualizar datos",
+          icon: Edit,
+          path: "/client/account/update-data",
+        },
+        {
+          id: "change-password",
+          label: "Cambiar contraseña",
+          icon: Lock,
+          path: "/client/account/change-password",
+        },
+        {
+          id: "2fa",
+          label: "Autenticación 2FA",
+          icon: ShieldCheck,
+          path: "/client/account/2fa",
+        },
+      ],
+    },
+    { id: "orders", label: "Mis compras", icon: ShoppingBag, disabled: true },
+    {
+      id: "payment-methods",
+      label: "Métodos de Pago",
+      icon: CreditCard,
+      disabled: true,
+    },
+    { id: "favorites", label: "Favoritos", icon: Heart, disabled: true },
+    { id: "billing", label: "Facturación", icon: FileText, disabled: true },
+    {
+      id: "notifications",
+      label: "Notificaciones",
+      icon: Bell,
+      disabled: true,
+    },
+    { id: "contributions", label: "Aportaciones", icon: Gift, disabled: true },
+    { id: "help", label: "Ayuda", icon: HelpCircle, disabled: true },
+  ];
+
+  return (
+    <aside className="w-full lg:w-64 bg-white rounded-lg shadow-md p-4 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
+      <nav className="space-y-1">
+        {menuItems.map((item) => {
+          const Icon = item.icon;
+
+          // ── Mi cuenta (link directo) ──
+          if (item.path && !item.expandable) {
+            const active = isActive(item.path);
+            return (
+              <button
+                key={item.id}
+                onClick={() => router.push(item.path!)}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-sm font-medium ${
+                  active
+                    ? "bg-blue-50 text-[#3498db]"
+                    : "text-gray-700 hover:bg-gray-50"
+                }`}
+              >
+                <Icon className={`w-5 h-5 ${active ? "text-[#3498db]" : ""}`} />
+                <span>{item.label}</span>
+              </button>
+            );
+          }
+
+          // ── Grupo expandible (Información Personal) ──
+          if (item.expandable && item.subItems) {
+            return (
+              <div key={item.id}>
+                <button
+                  onClick={() => setProfileExpanded(!profileExpanded)}
+                  className="w-full flex items-center justify-between px-3 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <Icon className="w-5 h-5" />
+                    <span className="text-sm font-medium">{item.label}</span>
+                  </div>
+                  {profileExpanded ? (
+                    <ChevronDown className="w-4 h-4" />
+                  ) : (
+                    <ChevronRight className="w-4 h-4" />
+                  )}
+                </button>
+
+                {profileExpanded && (
+                  <div className="ml-4 mt-1 space-y-1">
+                    {item.subItems.map((sub) => {
+                      const SubIcon = sub.icon;
+                      const active = isActive(sub.path);
+                      return (
+                        <button
+                          key={sub.id}
+                          onClick={() => router.push(sub.path)}
+                          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-sm ${
+                            active
+                              ? "bg-blue-50 text-[#3498db] font-medium"
+                              : "text-gray-600 hover:bg-blue-50 hover:text-[#3498db]"
+                          }`}
+                        >
+                          <SubIcon className="w-4 h-4" />
+                          <span>{sub.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          }
+
+          // ── Ítems deshabilitados ──
+          return (
+            <button
+              key={item.id}
+              disabled
+              className="w-full flex items-center gap-3 px-3 py-2.5 text-gray-400 cursor-not-allowed rounded-lg text-sm font-medium"
+            >
+              <Icon className="w-5 h-5" />
+              <span>{item.label}</span>
+            </button>
+          );
+        })}
+
+        {/* Cerrar sesión */}
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-3 py-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors mt-4 text-sm font-medium"
+        >
+          <LogOut className="w-5 h-5" />
+          <span>Cerrar sesión</span>
+        </button>
+      </nav>
+    </aside>
+  );
+}

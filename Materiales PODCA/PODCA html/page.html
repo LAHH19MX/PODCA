@@ -1,0 +1,183 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
+import Sidebar from "@/components/client/Sidebar";
+import {
+  User,
+  Heart,
+  HelpCircle,
+  Shield,
+  MapPin,
+  CreditCard,
+  Star,
+  RotateCcw,
+  Plus,
+} from "lucide-react";
+
+export default function AccountPage() {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex flex-col lg:flex-row gap-6">
+        <Sidebar />
+        <div className="flex-1">
+          <div className="space-y-6">
+            {/* Header con bienvenida */}
+            <div className="bg-gradient-to-r from-[#3498db] to-[#2980b9] rounded-lg p-8 text-white">
+              <h1 className="text-3xl font-bold mb-2">
+                ¡Hola, {user?.nombre}! 👋
+              </h1>
+              <p className="text-lg opacity-90">
+                Bienvenido a tu panel de control
+              </p>
+              <p className="text-sm opacity-75 mt-1">
+                Gestiona tu perfil, compras y preferencias desde un solo lugar
+              </p>
+            </div>
+
+            {/* 4 Tarjetas de acceso rápido */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <QuickAccessCard
+                icon={User}
+                title="Datos Personales"
+                onClick={() => router.push("/client/account/update-data")}
+              />
+              <QuickAccessCard icon={Heart} title="Favoritos" />
+              <QuickAccessCard icon={HelpCircle} title="Ayuda" />
+              <QuickAccessCard icon={Shield} title="Garantía" />
+            </div>
+
+            {/* Direcciones y Métodos de Pago */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <MapPin className="w-5 h-5 text-[#3498db]" />
+                    Direcciones
+                  </h2>
+                  <button className="text-sm text-[#3498db] hover:text-[#2980b9] font-medium">
+                    Gestionar
+                  </button>
+                </div>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                  <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                  <p className="text-gray-600 mb-2">
+                    Aún no tienes direcciones guardadas
+                  </p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    Agrega una dirección para agilizar tus compras
+                  </p>
+                  <button className="inline-flex items-center gap-2 px-4 py-2 bg-[#3498db] text-white rounded-lg hover:bg-[#2980b9] transition-colors text-sm font-medium">
+                    <Plus className="w-4 h-4" />
+                    Agregar dirección
+                  </button>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <CreditCard className="w-5 h-5 text-[#3498db]" />
+                    Mis Métodos
+                  </h2>
+                </div>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                  <CreditCard className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                  <p className="text-gray-600 mb-2">
+                    No tienes métodos de pago guardados
+                  </p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    Agrega una tarjeta para comprar más rápido
+                  </p>
+                  <button className="inline-flex items-center gap-2 px-4 py-2 bg-[#3498db] text-white rounded-lg hover:bg-[#2980b9] transition-colors text-sm font-medium">
+                    <Plus className="w-4 h-4" />
+                    Agregar método
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* 3 Secciones finales */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <Heart className="w-5 h-5 text-red-500" />
+                  <h2 className="text-lg font-bold text-gray-900">Favoritos</h2>
+                </div>
+                <div className="text-center py-8">
+                  <Heart className="w-16 h-16 text-gray-300 mx-auto mb-3" />
+                  <p className="text-gray-600 text-sm mb-2">
+                    Sin favoritos aún
+                  </p>
+                  <p className="text-gray-500 text-xs">
+                    Guarda productos para verlos después
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <Star className="w-5 h-5 text-yellow-500" />
+                  <h2 className="text-lg font-bold text-gray-900">
+                    Mis Opiniones
+                  </h2>
+                </div>
+                <div className="text-center py-8">
+                  <Star className="w-16 h-16 text-gray-300 mx-auto mb-3" />
+                  <p className="text-gray-600 text-sm mb-2">
+                    Sin reseñas todavía
+                  </p>
+                  <p className="text-gray-500 text-xs">
+                    Comparte tu experiencia con otros clientes
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <RotateCcw className="w-5 h-5 text-[#3498db]" />
+                  <h2 className="text-lg font-bold text-gray-900">
+                    Volver a Comprar
+                  </h2>
+                </div>
+                <div className="text-center py-8">
+                  <RotateCcw className="w-16 h-16 text-gray-300 mx-auto mb-3" />
+                  <p className="text-gray-600 text-sm mb-2">
+                    Sin compras previas
+                  </p>
+                  <p className="text-gray-500 text-xs">
+                    Tus productos frecuentes aparecerán aquí
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface QuickAccessCardProps {
+  icon: any;
+  title: string;
+  onClick?: () => void;
+}
+
+function QuickAccessCard({ icon: Icon, title, onClick }: QuickAccessCardProps) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={!onClick}
+      className="group py-3 px-4 bg-white border-2 border-gray-200 rounded-lg hover:border-gray-300 hover:bg-gray-50 transition-all hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-60"
+    >
+      <div className="flex items-center justify-center gap-2">
+        <Icon className="w-5 h-5 text-gray-700" />
+        <span className="font-semibold text-gray-900">{title}</span>
+      </div>
+    </button>
+  );
+}
